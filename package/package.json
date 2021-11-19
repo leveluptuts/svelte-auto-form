@@ -1,0 +1,37 @@
+{
+  "dependencies": {
+    "just-safe-get": "^4.0.0",
+    "marked": "^4.0.4",
+    "prismjs": "^1.25.0",
+    "svelte-multiselect": "^1.2.3",
+    "svelte-tags-input": "^2.8.1"
+  },
+  "devDependencies": {
+    "@sveltejs/kit": "next",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.1",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-svelte3": "^3.2.1",
+    "prettier": "^2.4.1",
+    "prettier-plugin-svelte": "^2.4.0",
+    "svelte": "^3.42.6",
+    "svelte-check": "^2.2.6",
+    "svelte-preprocess": "^4.9.4",
+    "svelte2tsx": "^0.4.10",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.3"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    "./AutoForm.svelte": "./AutoForm.svelte",
+    "./AutoFormRow.svelte": "./AutoFormRow.svelte",
+    "./Field.svelte": "./Field.svelte",
+    "./Markdown.svelte": "./Markdown.svelte",
+    ".": "./index.js"
+  },
+  "name": "@leveluptuts/auto-form",
+  "type": "module",
+  "version": "0.0.5",
+  "svelte": "./index.js"
+}
