@@ -4,7 +4,7 @@ A fast and fun form library focused on ease of use, rather than flexibility.
 
 ## Demo
 
-DEMO COMING SOON
+https://svelte.dev/repl/a868a8e86b6f4891a6305d6d0e024b36?version=3.44.2
 
 `npm install @leveluptuts/auto-form`
 
@@ -80,7 +80,13 @@ DEMO COMING SOON
 <AutoForm {action} input="{seriesInput}" />
 ```
 
-## Form Types
+## Action
+
+function that's run on submit of the form. form data is passed into this function.
+
+## Input
+
+### Form Types
 
 ```typescript
 export type FormTypes =

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import * as marked from 'marked';
-	import * as Prism from 'prismjs';
+	import { marked } from 'marked';
+	import Prism from 'prismjs';
 
 	// import 'prism-svelte'
 
