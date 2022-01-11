@@ -1,7 +1,5 @@
 <script >import { marked } from 'marked';
-console.log('marked', marked);
 import Prism from 'prismjs';
-console.log('Prism', Prism);
 // import 'prism-svelte'
 export let text = '';
 marked.setOptions({

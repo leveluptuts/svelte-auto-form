@@ -10,133 +10,133 @@
 		| 'email'
 		| 'select'
 		| 'search-select'
-		| 'markdown'
+		| 'markdown';
 
 	interface StringInput {
-		name: string
-		readonly?: boolean
-		type?: 'text'
-		label?: string
-		fields?: never
+		name: string;
+		readonly?: boolean;
+		type?: 'text';
+		label?: string;
+		fields?: never;
 	}
 
 	interface StandardInput {
-		name: string
-		type: FormTypes
-		readonly?: boolean
-		label?: string
-		fields?: never
+		name: string;
+		type: FormTypes;
+		readonly?: boolean;
+		label?: string;
+		fields?: never;
 	}
 
 	interface GroupInput {
-		name?: never
-		label?: never
-		type: 'group'
-		fields: FormInput[]
+		name?: never;
+		label?: never;
+		type: 'group';
+		fields: FormInput[];
 	}
 
 	interface SelectInput {
-		name: string
-		type: 'select' | 'search-select'
-		label?: string
-		options: string[] | object[]
-		valueProperty?: string
-		displayProperty?: string
-		fields?: never
+		name: string;
+		type: 'select' | 'search-select';
+		label?: string;
+		options: string[] | object[];
+		valueProperty?: string;
+		displayProperty?: string;
+		fields?: never;
 	}
 
-	export type FormInput = StringInput | StandardInput | GroupInput | string | SelectInput
+	export type FormInput = StringInput | StandardInput | GroupInput | string | SelectInput;
 
 	interface StandardStructure {
-		name: string
-		type: FormTypes
-		value: string | boolean | number
-		readonly?: boolean
-		label?: string
-		options?: never
-		valueProperty?: never
-		displayProperty?: never
-		fields?: never
+		name: string;
+		type: FormTypes;
+		value: string | boolean | number;
+		readonly?: boolean;
+		label?: string;
+		options?: never;
+		valueProperty?: never;
+		displayProperty?: never;
+		fields?: never;
 	}
 
 	interface SelectStructure {
-		name: string
-		type: FormTypes
-		value: string | boolean | number
-		readonly?: boolean
-		label?: string
-		options: string[] | object[]
-		valueProperty?: string
-		displayProperty?: string
-		fields?: never
+		name: string;
+		type: FormTypes;
+		value: string | boolean | number;
+		readonly?: boolean;
+		label?: string;
+		options: string[] | object[];
+		valueProperty?: string;
+		displayProperty?: string;
+		fields?: never;
 	}
 
 	interface GroupStructure {
-		name?: never
-		label?: never
-		type: 'group'
-		fields: FormStructure[]
-		options?: never
-		valueProperty?: never
-		displayProperty?: never
-		value?: never
+		name?: never;
+		label?: never;
+		type: 'group';
+		fields: FormStructure[];
+		options?: never;
+		valueProperty?: never;
+		displayProperty?: never;
+		value?: never;
 	}
 
-	export type FormStructure = StandardStructure | SelectStructure | GroupStructure
+	export type FormStructure = StandardStructure | SelectStructure | GroupStructure;
 
 	export type ReturnStructure = {
-		[id: string]: string | boolean | number
-	}
+		[id: string]: string | boolean | number;
+	};
 </script>
 
 <script lang="ts">
-	import type { Readable } from 'svelte/store'
-	import { writable, derived } from 'svelte/store'
-	import AutoFormRow from './AutoFormRow.svelte'
+	import type { Readable } from 'svelte/store';
+	import { writable, derived } from 'svelte/store';
+	import AutoFormRow from './AutoFormRow.svelte';
 
 	// Input is the data the data that determines the form fields and types
-	export let input: FormInput[] = []
-	export let model
-	export let data: ReturnStructure
+	export let input: FormInput[] = [];
+	export let model;
+	export let data: ReturnStructure;
 
 	export let action = (localFormData) => {
 		console.log(
 			'Your form is not connected to an action. Please add an action property to <AutoForm />',
 			localFormData
-		)
-	}
+		);
+	};
 
-	export let submitText = 'Submit'
+	export let submitText = 'Submit';
 
 	function buildValues(item, model): FormStructure {
 		// If the input is a string, build rest of object
 		// As String
 		if (typeof item === 'string') {
 			// If model data exists add that as value, otherwise make it an empty string
-			let value = ''
-			value = model?.[item] ? model?.[item] : ''
+			let value = '';
+			value = model?.[item] ? model?.[item] : '';
 
 			return {
 				name: item,
 				label: item,
 				value,
-				type: 'text',
-			}
+				type: 'text'
+			};
 		}
 
 		// If item has a name, but no type, it's a string / text
 		// As StringInput
 		if (item?.name && !item?.type) {
 			// If model data exists add that as value, otherwise make it an empty string
-			let value = ''
-			value = model?.[item.name] ? model?.[item.name] : ''
+			let value = '';
+			value = model?.[item.name] ? model?.[item.name] : '';
 
 			return {
 				name: item.name,
 				label: item.label || item.name,
 				value,
-				type: 'text',
-			}
+				type: 'text'
+			};
 		}
 
 		// SelectStructure
@@ -144,15 +144,15 @@
 		if (item.type === 'select' || item.type === 'search-select') {
 			// If model data exists add that as value, otherwise make it an empty string
 			// Get default value
-			let value: string | boolean | number | any[] = ''
+			let value: string | boolean | number | any[] = '';
 
-			value = model?.[item.name] ? model?.[item.name] : value
+			value = model?.[item.name] ? model?.[item.name] : value;
 
 			return {
 				...item,
 				value,
-				label: item.label || item.name,
-			}
+				label: item.label || item.name
+			};
 		}
 
 		// StandardInput
@@ -160,19 +160,38 @@
 		if (item.name && item.type) {
 			// If model data exists add that as value, otherwise make it an empty string
 			// Get default value
-			let value: string | boolean | number | any[] = ''
-			if (item.type === 'checkbox') value = false
-			if (item.type === 'tag') value = []
-			if (item.type === 'number') value = 0
+			let value: string | boolean | number | any[] = '';
+			if (item.type === 'checkbox') value = false;
+			if (item.type === 'tag') value = [];
+			if (item.type === 'number') value = 0;
 
-			value = model?.[item.name] ? model?.[item.name] : value
+			value = model?.[item.name] ? model?.[item.name] : value;
 
 			return {
 				...item,
 				value,
-				label: item.label || item.name,
-			}
+				label: item.label || item.name
+			};
 		}
+	}
+
+	function formatData(input, model): FormStructure[] {
+		return input.map((item: FormInput) => {
+			if (typeof item === 'string') return buildValues(item, model);
+
+			// SelectStructure
+			// If type is "group"
+			if (item?.type === 'group') {
+				const groupedItems: FormStructure[] = item.fields.map((deepItem) => {
+					return buildValues(deepItem, model);
+				});
+				return {
+					...item,
+					fields: groupedItems
+				};
+			}
+			return buildValues(item, model);
+		});
 	}
 
 	// First take data and massage it with model into FormStructure
@@ -180,63 +199,53 @@
 
 	// If value is a string, make an object with name as the
 	// property and value as the value
-	const formDataFormatted: FormStructure[] = input.map((item: FormInput) => {
-		if (typeof item === 'string') return buildValues(item, model)
-
-		// SelectStructure
-		// If type is "group"
-		if (item?.type === 'group') {
-			const groupedItems: FormStructure[] = item.fields.map((deepItem) => {
-				return buildValues(deepItem, model)
-			})
-			return {
-				...item,
-				fields: groupedItems,
-			}
-		}
-		return buildValues(item, model)
-	})
+	let formDataFormatted: FormStructure[] = formatData(input, model);
 
 	// Form data should be the TRUTH of the form state.
 	// ie is always up to date with what is displayed in the input
-	const formData = writable<FormStructure[]>(formDataFormatted)
+	const formData = writable<FormStructure[]>(formDataFormatted);
 
 	// This is the reverse of the format data bit. This takes the writable store
 	// and "-"
 	export const formReturn: Readable<ReturnStructure> = derived(formData, ($formDataInt) => {
 		return $formDataInt.reduce((prev, current) => {
-			let tempObject = {}
+			let tempObject = {};
 
 			// Formats Group Structure
 			if (current.type === 'group') {
 				const groupedFields = current.fields.reduce((prev, current) => {
-					prev[current.name] = current.value
-					return prev
-				}, {})
+					prev[current.name] = current.value;
+					return prev;
+				}, {});
 				return {
 					...prev,
-					...groupedFields,
-				}
+					...groupedFields
+				};
 			}
 
 			// Removes "-"
-			if (current.name === '-') return prev
+			if (current.name === '-') return prev;
 
 			// and turns it into a data object similar to the original structure however removing things like "group"
-			tempObject[current.name] = current.value
+			tempObject[current.name] = current.value;
 			return {
 				...prev,
-				...tempObject,
-			}
-		}, {})
-	})
+				...tempObject
+			};
+		}, {});
+	});
 
 	// Pass the data up to bound variable
-	$: data = $formReturn
+	$: data = $formReturn;
 
 	// Returns the internal store based on the data
 	function onSubmit() {
-		action($formReturn)
+		action($formReturn);
+	}
+
+	$: {
+		formDataFormatted = formatData(input, model);
+		$formData = formDataFormatted;
 	}
 </script>
 

@@ -21,7 +21,7 @@ function buildValues(item, model) {
             name: item,
             label: item,
             value,
-            type: 'text',
+            type: 'text'
         };
     }
     // If item has a name, but no type, it's a string / text
@@ -34,7 +34,7 @@ function buildValues(item, model) {
             name: item.name,
             label: item.label || item.name,
             value,
-            type: 'text',
+            type: 'text'
         };
     }
     // SelectStructure
@@ -47,7 +47,7 @@ function buildValues(item, model) {
         return {
             ...item,
             value,
-            label: item.label || item.name,
+            label: item.label || item.name
         };
     }
     // StandardInput
@@ -66,30 +66,35 @@ function buildValues(item, model) {
         return {
             ...item,
             value,
-            label: item.label || item.name,
+            label: item.label || item.name
         };
     }
+}
+function formatData(input, model) {
+    console.log('in format');
+    return input.map((item) => {
+        if (typeof item === 'string')
+            return buildValues(item, model);
+        // SelectStructure
+        // If type is "group"
+        if (item?.type === 'group') {
+            const groupedItems = item.fields.map((deepItem) => {
+                return buildValues(deepItem, model);
+            });
+            return {
+                ...item,
+                fields: groupedItems
+            };
+        }
+        return buildValues(item, model);
+    });
 }
 // First take data and massage it with model into FormStructure
 // Then take the FormStructure and turn it into a writeable
 // If value is a string, make an object with name as the
 // property and value as the value
-const formDataFormatted = input.map((item) => {
-    if (typeof item === 'string')
-        return buildValues(item, model);
-    // SelectStructure
-    // If type is "group"
-    if (item?.type === 'group') {
-        const groupedItems = item.fields.map((deepItem) => {
-            return buildValues(deepItem, model);
-        });
-        return {
-            ...item,
-            fields: groupedItems,
-        };
-    }
-    return buildValues(item, model);
-});
+let formDataFormatted;
+formDataFormatted = formatData(input, model);
 // Form data should be the TRUTH of the form state.
 // ie is always up to date with what is displayed in the input
 const formData = writable(formDataFormatted);
@@ -106,7 +111,7 @@ export const formReturn = derived(formData, ($formDataInt) => {
             }, {});
             return {
                 ...prev,
-                ...groupedFields,
+                ...groupedFields
             };
         }
         // Removes "-"
@@ -116,7 +121,7 @@ export const formReturn = derived(formData, ($formDataInt) => {
         tempObject[current.name] = current.value;
         return {
             ...prev,
-            ...tempObject,
+            ...tempObject
         };
     }, {});
 });
@@ -125,6 +130,10 @@ $: data = $formReturn;
 // Returns the internal store based on the data
 function onSubmit() {
     action($formReturn);
+}
+$: {
+    formDataFormatted = formatData(input, model);
+    $formData = formDataFormatted;
 }
 </script>
 
