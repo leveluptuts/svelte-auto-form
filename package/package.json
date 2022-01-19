@@ -3,7 +3,7 @@
     "just-safe-get": "^4.0.1",
     "marked": "^4.0.7",
     "prismjs": "^1.25.0",
-    "svelte-multiselect": "^3.0.1",
+    "svelte-multiselect": "^1.2.3",
     "svelte-tags-input": "^2.8.1"
   },
   "devDependencies": {
@@ -32,6 +32,6 @@
   },
   "name": "@leveluptuts/auto-form",
   "type": "module",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "svelte": "./index.js"
 }

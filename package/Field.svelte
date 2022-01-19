@@ -32,12 +32,12 @@ const handleInput = (event) => {
     if (event?.target?.value) {
         value = event.target.value;
     }
-    if (type.match(/^(number|range)$/)) {
+    if (type?.match(/^(number|range)$/)) {
         value = +event.target.value;
     }
-    if (forceUppercase)
+    if (forceUppercase && typeof value === 'string')
         value = value.toUpperCase();
-    if (forceLowercase)
+    if (forceLowercase && typeof value === 'string')
         value = value.toLowerCase();
     // Don't use value if checkbox
     if (type === 'checkbox') {
@@ -47,7 +47,7 @@ const handleInput = (event) => {
     if (type === 'search-select') {
         value = event.detail.token;
     }
-    formData.update((prev) => {
+    formData?.update((prev) => {
         let tempData = prev;
         if (Array.isArray(index)) {
             tempData[index[0]].fields[index[1]].value = value;
@@ -153,7 +153,7 @@ function getOption(option, property) {
 					{id}
 					{required}
 					{readonly}
-					selected={value + ''}
+					selected={value}
 					on:change={handleInput}
 					{options}
 				/>

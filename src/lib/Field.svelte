@@ -38,12 +38,12 @@
 			value = event.target.value;
 		}
 
-		if (type.match(/^(number|range)$/)) {
+		if (type?.match(/^(number|range)$/)) {
 			value = +event.target.value;
 		}
 
-		if (forceUppercase) value = value.toUpperCase();
-		if (forceLowercase) value = value.toLowerCase();
+		if (forceUppercase && typeof value === 'string') value = value.toUpperCase();
+		if (forceLowercase && typeof value === 'string') value = value.toLowerCase();
 
 		// Don't use value if checkbox
 		if (type === 'checkbox') {
@@ -54,7 +54,7 @@
 			value = event.detail.token;
 		}
 
-		formData.update((prev) => {
+		formData?.update((prev) => {
 			let tempData = prev;
 
 			if (Array.isArray(index)) {
@@ -161,7 +161,7 @@
 					{id}
 					{required}
 					{readonly}
-					selected={value + ''}
+					selected={value}
 					on:change={handleInput}
 					{options}
 				/>

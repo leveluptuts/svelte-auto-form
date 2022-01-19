@@ -1,6 +1,5 @@
 <script >import Field from './Field.svelte';
 export let fields;
-export let model;
 export let formData;
 export let selfIndex = 0;
 </script>

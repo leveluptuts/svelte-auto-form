@@ -4,7 +4,6 @@ import type { FormStructure } from './AutoForm.svelte';
 declare const __propDef: {
     props: {
         fields: FormStructure[];
-        model: any;
         formData: Writable<FormStructure[]>;
         selfIndex?: number;
     };

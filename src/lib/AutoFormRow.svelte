@@ -1,11 +1,10 @@
 <script lang="ts">
-	import type { Writable } from 'svelte/store'
-	import Field from './Field.svelte'
-	import type { FormStructure } from './AutoForm.svelte'
-	export let fields: FormStructure[]
-	export let model
-	export let formData: Writable<FormStructure[]>
-	export let selfIndex = 0
+	import type { Writable } from 'svelte/store';
+	import Field from './Field.svelte';
+	import type { FormStructure } from './AutoForm.svelte';
+	export let fields: FormStructure[];
+	export let formData: Writable<FormStructure[]>;
+	export let selfIndex = 0;
 </script>
 
 {#each fields as field, index (field)}

@@ -71,7 +71,6 @@ function buildValues(item, model) {
     }
 }
 function formatData(input, model) {
-    console.log('in format');
     return input.map((item) => {
         if (typeof item === 'string')
             return buildValues(item, model);
@@ -93,8 +92,7 @@ function formatData(input, model) {
 // Then take the FormStructure and turn it into a writeable
 // If value is a string, make an object with name as the
 // property and value as the value
-let formDataFormatted;
-formDataFormatted = formatData(input, model);
+let formDataFormatted = formatData(input, model);
 // Form data should be the TRUTH of the form state.
 // ie is always up to date with what is displayed in the input
 const formData = writable(formDataFormatted);
