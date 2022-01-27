@@ -3,7 +3,7 @@ import type { Writable } from 'svelte/store';
 import type { FormTypes, FormStructure } from './AutoForm.svelte';
 declare const __propDef: {
     props: {
-        type: FormTypes;
+        type?: FormTypes;
         required?: boolean;
         autocomplete?: string;
         displayInline?: boolean;
@@ -22,9 +22,8 @@ declare const __propDef: {
         displayProperty?: string;
         readonly?: boolean;
         options?: any[];
-        index: number | number[];
-        depth?: number;
-        formData: Writable<FormStructure[]>;
+        index?: number | number[];
+        formData?: Writable<FormStructure[]>;
     };
     events: {
         [evt: string]: CustomEvent<any>;

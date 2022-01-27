@@ -7,7 +7,7 @@
 	import MarkdownRenderer from './Markdown.svelte';
 
 	// Required
-	export let type: FormTypes;
+	export let type: FormTypes = 'text';
 	// Optional
 	export let required = false;
 	export let autocomplete = '';
@@ -15,7 +15,7 @@
 	export let forceLowercase = false;
 	export let forceUppercase = false;
 	export let instructions = '';
-	export let label = '';
+	export let label: string = '';
 	export let name = '';
 	export let onEnter: () => any = undefined;
 	export let placeholder = '';
@@ -27,9 +27,8 @@
 	export let displayProperty = '';
 	export let readonly = false;
 	export let options = [];
-	export let index: number | number[];
-	export let depth = 0;
-	export let formData: Writable<FormStructure[]>;
+	export let index: number | number[] = 0;
+	export let formData: Writable<FormStructure[]> = undefined;
 
 	const handleInput = (event) => {
 		// in here, you can switch on type and implement

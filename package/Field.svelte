@@ -3,7 +3,7 @@ import Tags from 'svelte-tags-input';
 import get from 'just-safe-get';
 import MarkdownRenderer from './Markdown.svelte';
 // Required
-export let type;
+export let type = 'text';
 // Optional
 export let required = false;
 export let autocomplete = '';
@@ -23,9 +23,8 @@ export let valueProperty = '';
 export let displayProperty = '';
 export let readonly = false;
 export let options = [];
-export let index;
-export let depth = 0;
-export let formData;
+export let index = 0;
+export let formData = undefined;
 const handleInput = (event) => {
     // in here, you can switch on type and implement
     // whatever behavior you need
