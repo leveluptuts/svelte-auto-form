@@ -149,10 +149,8 @@ function getOption(option, property) {
 					--sms-border="solid 1px grey"
 					--sms-border-radius="3px"
 					maxSelect={1}
-					{id}
-					{required}
 					{readonly}
-					selected={value}
+					selected={value.toString()}
 					on:change={handleInput}
 					{options}
 				/>

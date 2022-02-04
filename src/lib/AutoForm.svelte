@@ -97,7 +97,7 @@
 	// Input is the data the data that determines the form fields and types
 	export let input: FormInput[] = [];
 	export let model;
-	export let data: ReturnStructure;
+	export let data: any = {};
 
 	export let action = (localFormData) => {
 		console.log(

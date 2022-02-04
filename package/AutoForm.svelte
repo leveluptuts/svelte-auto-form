@@ -5,7 +5,7 @@ import AutoFormRow from './AutoFormRow.svelte';
 // Input is the data the data that determines the form fields and types
 export let input = [];
 export let model;
-export let data;
+export let data = {};
 export let action = (localFormData) => {
     console.log('Your form is not connected to an action. Please add an action property to <AutoForm />', localFormData);
 };

@@ -71,7 +71,7 @@ declare const __propDef: {
     props: {
         input?: FormInput[];
         model: any;
-        data: ReturnStructure;
+        data?: any;
         action?: (localFormData: any) => void;
         submitText?: string;
         formReturn?: Readable<ReturnStructure>;
