@@ -18,7 +18,9 @@ export let selfIndex = 0;
 			type={field.type}
 			label={field.label || field.name}
 			name={field.name}
+			style={field.style}
 			readonly={field.readonly}
+			placeholder={field.placeholder}
 			value={field.value}
 		/>
 	{:else if field.type === 'select' || field.type === 'search-select'}

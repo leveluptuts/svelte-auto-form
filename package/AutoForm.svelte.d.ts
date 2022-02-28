@@ -6,6 +6,7 @@ interface StringInput {
     type?: 'text';
     label?: string;
     fields?: never;
+    placeholder?: string;
 }
 interface StandardInput {
     name: string;
@@ -13,6 +14,8 @@ interface StandardInput {
     readonly?: boolean;
     label?: string;
     fields?: never;
+    style?: string;
+    placeholder?: string;
 }
 interface GroupInput {
     name?: never;
@@ -39,6 +42,8 @@ interface StandardStructure {
     options?: never;
     valueProperty?: never;
     displayProperty?: never;
+    style?: string;
+    placeholder?: string;
     fields?: never;
 }
 interface SelectStructure {

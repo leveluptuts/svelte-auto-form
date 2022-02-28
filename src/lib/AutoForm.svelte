@@ -18,6 +18,7 @@
 		type?: 'text';
 		label?: string;
 		fields?: never;
+		placeholder?: string;
 	}
 
 	interface StandardInput {
@@ -26,6 +27,8 @@
 		readonly?: boolean;
 		label?: string;
 		fields?: never;
+		style?: string;
+		placeholder?: string;
 	}
 
 	interface GroupInput {
@@ -56,6 +59,8 @@
 		options?: never;
 		valueProperty?: never;
 		displayProperty?: never;
+		style?: string;
+		placeholder?: string;
 		fields?: never;
 	}
 

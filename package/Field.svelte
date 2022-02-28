@@ -68,7 +68,7 @@ function getOption(option, property) {
 }
 </script>
 
-<div class="fresh-field-wrapper" {style} class:inline={displayInline}>
+<div class="fresh-field-wrapper" class:inline={displayInline}>
 	<label class="fresh-label" for={name}>
 		{#if type === 'checkbox'}
 			<div class="checkbox">
@@ -98,9 +98,11 @@ function getOption(option, property) {
 					class="fresh-input-textarea fresh-input"
 					on:input={handleInput}
 					on:keypress={handleKeypress}
+					{placeholder}
 					{required}
 					{value}
 					{name}
+					{style}
 					{...rest}
 				/>
 			{:else if type === 'markdown'}
@@ -110,7 +112,6 @@ function getOption(option, property) {
 						class="fresh-input-textarea fresh-input"
 						on:input={handleInput}
 						on:keypress={handleKeypress}
-						style="height: 400px;"
 						{required}
 						{value}
 						{name}
@@ -234,4 +235,9 @@ select {
   box-shadow: var(--level-3);
   border-top: solid 1px rgba(255, 255, 255, 0.1);
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
+}
+
+.fresh-label {
+  text-transform: capitalize;
+  display: block;
 }</style>
