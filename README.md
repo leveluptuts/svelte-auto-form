@@ -4,7 +4,7 @@ A fast and fun form library focused on ease of use, rather than flexibility.
 
 ## Demo
 
-https://svelte.dev/repl/a868a8e86b6f4891a6305d6d0e024b36?version=3.44.2
+https://svelte.dev/repl/a868a8e86b6f4891a6305d6d0e024b36?version=3.46.5
 
 `npm install @leveluptuts/auto-form`
 
