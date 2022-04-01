@@ -21,7 +21,7 @@
 		placeholder?: string;
 	}
 
-	interface StandardInput {
+	export interface StandardInput {
 		name: string;
 		type: FormTypes;
 		readonly?: boolean;
@@ -103,7 +103,7 @@
 	export let input: FormInput[] = [];
 	// Starting data
 	export let model;
-	
+
 	export let data: any = {};
 
 	export let action = (localFormData) => {
