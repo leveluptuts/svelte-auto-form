@@ -25,6 +25,8 @@ export let readonly = false;
 export let options = [];
 export let index = 0;
 export let formData = undefined;
+// For multi select
+export let selected = [{ value, label: value }];
 const handleInput = (event) => {
     // in here, you can switch on type and implement
     // whatever behavior you need
@@ -44,7 +46,7 @@ const handleInput = (event) => {
     }
     // Don't use value if checkbox
     if (type === 'search-select') {
-        value = event.detail.token;
+        value = event.detail.option.value;
     }
     formData?.update((prev) => {
         let tempData = prev;
@@ -150,8 +152,8 @@ function getOption(option, property) {
 					--sms-border="solid 1px grey"
 					--sms-border-radius="3px"
 					maxSelect={1}
-					{readonly}
-					selected={value.toString()}
+					disabled={readonly}
+					bind:selected
 					on:change={handleInput}
 					{options}
 				/>

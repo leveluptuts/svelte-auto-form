@@ -2,6 +2,7 @@
 	import type { Writable } from 'svelte/store';
 	import type { FormTypes, FormStructure } from './AutoForm.svelte';
 	import MultiSelect from 'svelte-multiselect';
+	import type { Option } from 'svelte-multiselect';
 	import Tags from 'svelte-tags-input';
 	import get from 'just-safe-get';
 	import MarkdownRenderer from './Markdown.svelte';
@@ -22,7 +23,7 @@
 	export let rest = {};
 	export let style = '';
 
-	export let value: string | boolean | number = '';
+	export let value: string | boolean | number | Option = '';
 	export let id = '';
 	export let valueProperty = '';
 	export let displayProperty = '';
@@ -30,6 +31,9 @@
 	export let options = [];
 	export let index: number | number[] = 0;
 	export let formData: Writable<FormStructure[]> = undefined;
+
+	// For multi select
+	export let selected = [{ value, label: value }];
 
 	const handleInput = (event) => {
 		// in here, you can switch on type and implement
@@ -51,7 +55,7 @@
 		}
 		// Don't use value if checkbox
 		if (type === 'search-select') {
-			value = event.detail.token;
+			value = event.detail.option.value;
 		}
 
 		formData?.update((prev) => {
@@ -159,8 +163,8 @@
 					--sms-border="solid 1px grey"
 					--sms-border-radius="3px"
 					maxSelect={1}
-					{readonly}
-					selected={value.toString()}
+					disabled={readonly}
+					bind:selected
 					on:change={handleInput}
 					{options}
 				/>

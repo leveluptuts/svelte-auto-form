@@ -1,4 +1,5 @@
 import { SvelteComponentTyped } from "svelte";
+import type { Option } from 'svelte-multiselect';
 export declare type FormTypes = 'number' | 'text' | 'checkbox' | 'select' | 'tag' | 'textarea' | 'password' | 'email' | 'select' | 'search-select' | 'markdown';
 interface StringInput {
     name: string;
@@ -8,7 +9,7 @@ interface StringInput {
     fields?: never;
     placeholder?: string;
 }
-interface StandardInput {
+export interface StandardInput {
     name: string;
     type: FormTypes;
     readonly?: boolean;
@@ -49,7 +50,7 @@ interface StandardStructure {
 interface SelectStructure {
     name: string;
     type: FormTypes;
-    value: string | boolean | number;
+    value: string | boolean | number | Option;
     readonly?: boolean;
     label?: string;
     options: string[] | object[];

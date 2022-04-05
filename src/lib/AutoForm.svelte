@@ -1,4 +1,6 @@
 <script context="module" lang="ts">
+	import type { Option } from 'svelte-multiselect';
+
 	export type FormTypes =
 		| 'number'
 		| 'text'
@@ -67,7 +69,7 @@
 	interface SelectStructure {
 		name: string;
 		type: FormTypes;
-		value: string | boolean | number;
+		value: string | boolean | number | Option;
 		readonly?: boolean;
 		label?: string;
 		options: string[] | object[];

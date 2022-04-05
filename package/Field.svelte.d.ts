@@ -1,6 +1,7 @@
 import { SvelteComponentTyped } from "svelte";
 import type { Writable } from 'svelte/store';
 import type { FormTypes, FormStructure } from './AutoForm.svelte';
+import type { Option } from 'svelte-multiselect';
 declare const __propDef: {
     props: {
         type?: FormTypes;
@@ -16,7 +17,7 @@ declare const __propDef: {
         placeholder?: string;
         rest?: {};
         style?: string;
-        value?: string | boolean | number;
+        value?: string | boolean | number | Option;
         id?: string;
         valueProperty?: string;
         displayProperty?: string;
@@ -24,6 +25,10 @@ declare const __propDef: {
         options?: any[];
         index?: number | number[];
         formData?: Writable<FormStructure[]>;
+        selected?: {
+            value: string | number | boolean | Option;
+            label: string | number | boolean | Option;
+        }[];
     };
     events: {
         [evt: string]: CustomEvent<any>;
