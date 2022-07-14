@@ -26,8 +26,8 @@ declare const __propDef: {
         index?: number | number[];
         formData?: Writable<FormStructure[]>;
         selected?: {
-            value: string | number | boolean | Option;
-            label: string | number | boolean | Option;
+            value: boolean | Option;
+            label: boolean | Option;
         }[];
     };
     events: {

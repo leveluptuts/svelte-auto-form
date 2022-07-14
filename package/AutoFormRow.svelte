@@ -1,4 +1,4 @@
-<script >import Field from './Field.svelte';
+<script>import Field from './Field.svelte';
 export let fields;
 export let formData;
 export let selfIndex = 0;

@@ -1,6 +1,7 @@
-<script context="module" ></script>
+<script context="module">export {};
+</script>
 
-<script >import { writable, derived } from 'svelte/store';
+<script>import { writable, derived } from 'svelte/store';
 import AutoFormRow from './AutoFormRow.svelte';
 // Input is the data the data that determines the form fields and types
 export let input = [];

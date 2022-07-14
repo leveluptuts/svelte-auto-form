@@ -1,4 +1,4 @@
-<script >import { marked } from 'marked';
+<script>import { marked } from 'marked';
 import Prism from 'prismjs';
 // import 'prism-svelte'
 export let text = '';
@@ -22,7 +22,7 @@ marked.setOptions({
 	{@html marked(text)}
 </div>
 
-<style >.markdown-render {
+<style>.markdown-render {
   hyphens: auto;
   overflow-wrap: break-word;
   word-break: break-word;

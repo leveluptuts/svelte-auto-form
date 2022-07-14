@@ -1,4 +1,4 @@
-<script >import MultiSelect from 'svelte-multiselect';
+<script>import MultiSelect from 'svelte-multiselect';
 import Tags from 'svelte-tags-input';
 import get from 'just-safe-get';
 import MarkdownRenderer from './Markdown.svelte';
@@ -177,7 +177,7 @@ function getOption(option, property) {
 	</label>
 </div>
 
-<style >.fresh-field-wrapper.inline {
+<style>.fresh-field-wrapper.inline {
   display: inline-block;
 }
 .fresh-field-wrapper .instructions {
