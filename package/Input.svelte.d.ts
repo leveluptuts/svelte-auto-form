@@ -1,6 +1,6 @@
 import { SvelteComponentTyped } from "svelte";
 import type { Writable } from 'svelte/store';
-import type { FormTypes, FormStructure } from './AutoForm.svelte';
+import type { FormTypes, FormStructure } from './types';
 import type { Option } from 'svelte-multiselect';
 declare const __propDef: {
     props: {
@@ -35,9 +35,9 @@ declare const __propDef: {
     };
     slots: {};
 };
-export declare type FieldProps = typeof __propDef.props;
-export declare type FieldEvents = typeof __propDef.events;
-export declare type FieldSlots = typeof __propDef.slots;
-export default class Field extends SvelteComponentTyped<FieldProps, FieldEvents, FieldSlots> {
+export declare type InputProps = typeof __propDef.props;
+export declare type InputEvents = typeof __propDef.events;
+export declare type InputSlots = typeof __propDef.slots;
+export default class Input extends SvelteComponentTyped<InputProps, InputEvents, InputSlots> {
 }
 export {};

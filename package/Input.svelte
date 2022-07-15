@@ -70,11 +70,11 @@ function getOption(option, property) {
 }
 </script>
 
-<div class="fresh-field-wrapper" class:inline={displayInline}>
-	<label class="fresh-label" for={name}>
+<div class="auto_form_field-wrapper" class:inline={displayInline}>
+	<label class="auto_form_label" for={name}>
 		{#if type === 'checkbox'}
 			<div class="checkbox">
-				<span class="fresh-title">{label}</span>
+				<span class="auto_form_title">{label}</span>
 				<input
 					{id}
 					type="checkbox"
@@ -88,7 +88,7 @@ function getOption(option, property) {
 		{:else}
 			<div>
 				{#if label}
-					<span class="fresh-title">{label}</span>
+					<span class="auto_form_title">{label}</span>
 				{/if}
 				{#if instructions}
 					<span class="instructions">{instructions}</span>
@@ -97,7 +97,7 @@ function getOption(option, property) {
 			{#if type === 'textarea'}
 				<textarea
 					{id}
-					class="fresh-input-textarea fresh-input"
+					class="auto_form_input-textarea auto_form_input"
 					on:input={handleInput}
 					on:keypress={handleKeypress}
 					{placeholder}
@@ -111,7 +111,7 @@ function getOption(option, property) {
 				<div class="split">
 					<textarea
 						{id}
-						class="fresh-input-textarea fresh-input"
+						class="auto_form_input-textarea auto_form_input"
 						on:input={handleInput}
 						on:keypress={handleKeypress}
 						{required}
@@ -138,7 +138,7 @@ function getOption(option, property) {
 					{value}
 					on:input={handleInput}
 					on:keypress={handleKeypress}
-					class="fresh-input fresh-input-select f-select"
+					class="auto_form_input auto_form_input-select f-select"
 					{name}
 				>
 					{#each options as option}
@@ -169,7 +169,7 @@ function getOption(option, property) {
 					{placeholder}
 					{type}
 					{value}
-					class="fresh-input"
+					class="auto_form_input"
 					{...rest}
 				/>
 			{/if}
@@ -177,25 +177,25 @@ function getOption(option, property) {
 	</label>
 </div>
 
-<style>.fresh-field-wrapper.inline {
+<style>.auto_form_field-wrapper.inline {
   display: inline-block;
 }
-.fresh-field-wrapper .instructions {
+.auto_form_field-wrapper .instructions {
   font-size: var(--smallFontSize);
   margin-left: 1rem;
   opacity: 0.7;
 }
-.fresh-field-wrapper .fresh-input {
+.auto_form_field-wrapper .auto_form_input {
   margin-top: 0.3rem;
 }
-.fresh-field-wrapper .checkbox {
+.auto_form_field-wrapper .checkbox {
   margin-right: 0.6rem;
 }
-.fresh-field-wrapper .checkbox input[type=checkbox] {
+.auto_form_field-wrapper .checkbox input[type=checkbox] {
   margin-right: 0.6rem;
   transform: scale(1.6);
 }
-.fresh-field-wrapper textarea {
+.auto_form_field-wrapper textarea {
   min-height: 6rem;
   padding: 0.6rem 1rem;
 }
@@ -239,7 +239,7 @@ select {
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
 }
 
-.fresh-label {
+.auto_form_label {
   text-transform: capitalize;
   display: block;
 }</style>

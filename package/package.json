@@ -21,16 +21,17 @@
     "tslib": "^2.3.1",
     "typescript": "^4.7.4"
   },
-  "exports": {
-    "./package.json": "./package.json",
-    ".": "./index.js",
-    "./AutoForm.svelte": "./AutoForm.svelte",
-    "./AutoFormRow.svelte": "./AutoFormRow.svelte",
-    "./Field.svelte": "./Field.svelte",
-    "./Markdown.svelte": "./Markdown.svelte"
-  },
   "name": "@leveluptuts/auto-form",
   "type": "module",
-  "version": "0.0.11",
+  "version": "0.1.0",
+  "exports": {
+    "./package.json": "./package.json",
+    "./AutoForm.svelte": "./AutoForm.svelte",
+    "./AutoFormRow.svelte": "./AutoFormRow.svelte",
+    "./Input.svelte": "./Input.svelte",
+    "./Markdown.svelte": "./Markdown.svelte",
+    ".": "./index.js",
+    "./types": "./types.js"
+  },
   "svelte": "./index.js"
 }

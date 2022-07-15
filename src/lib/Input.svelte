@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Writable } from 'svelte/store';
-	import type { FormTypes, FormStructure } from './AutoForm.svelte';
-	import MultiSelect from 'svelte-multiselect';
+	import type { FormTypes, FormStructure } from './types';
 	import type { Option } from 'svelte-multiselect';
+	import MultiSelect from 'svelte-multiselect';
 	import Tags from 'svelte-tags-input';
 	import get from 'just-safe-get';
 	import MarkdownRenderer from './Markdown.svelte';
@@ -81,11 +81,11 @@
 	}
 </script>
 
-<div class="fresh-field-wrapper" class:inline={displayInline}>
-	<label class="fresh-label" for={name}>
+<div class="auto_form_field-wrapper" class:inline={displayInline}>
+	<label class="auto_form_label" for={name}>
 		{#if type === 'checkbox'}
 			<div class="checkbox">
-				<span class="fresh-title">{label}</span>
+				<span class="auto_form_title">{label}</span>
 				<input
 					{id}
 					type="checkbox"
@@ -99,7 +99,7 @@
 		{:else}
 			<div>
 				{#if label}
-					<span class="fresh-title">{label}</span>
+					<span class="auto_form_title">{label}</span>
 				{/if}
 				{#if instructions}
 					<span class="instructions">{instructions}</span>
@@ -108,7 +108,7 @@
 			{#if type === 'textarea'}
 				<textarea
 					{id}
-					class="fresh-input-textarea fresh-input"
+					class="auto_form_input-textarea auto_form_input"
 					on:input={handleInput}
 					on:keypress={handleKeypress}
 					{placeholder}
@@ -122,7 +122,7 @@
 				<div class="split">
 					<textarea
 						{id}
-						class="fresh-input-textarea fresh-input"
+						class="auto_form_input-textarea auto_form_input"
 						on:input={handleInput}
 						on:keypress={handleKeypress}
 						{required}
@@ -149,7 +149,7 @@
 					{value}
 					on:input={handleInput}
 					on:keypress={handleKeypress}
-					class="fresh-input fresh-input-select f-select"
+					class="auto_form_input auto_form_input-select f-select"
 					{name}
 				>
 					{#each options as option}
@@ -180,7 +180,7 @@
 					{placeholder}
 					{type}
 					{value}
-					class="fresh-input"
+					class="auto_form_input"
 					{...rest}
 				/>
 			{/if}
@@ -189,7 +189,7 @@
 </div>
 
 <style lang="scss">
-	.fresh-field-wrapper {
+	.auto_form_field-wrapper {
 		&.inline {
 			display: inline-block;
 		}
@@ -200,7 +200,7 @@
 			opacity: 0.7;
 		}
 
-		.fresh-input {
+		.auto_form_input {
 			margin-top: 0.3rem;
 		}
 
@@ -258,7 +258,7 @@
 		border-bottom: solid 1px rgba(0, 0, 0, 0.2);
 	}
 
-	.fresh-label {
+	.auto_form_label {
 		text-transform: capitalize;
 		display: block;
 	}

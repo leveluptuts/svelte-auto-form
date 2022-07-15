@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Writable } from 'svelte/store';
-	import Field from './Field.svelte';
-	import type { FormStructure } from './AutoForm.svelte';
+	import Input from './Input.svelte';
+	import type { FormStructure } from './types';
 	export let fields: FormStructure[];
 	export let formData: Writable<FormStructure[]>;
 	export let selfIndex = 0;
@@ -15,7 +15,7 @@
 			<svelte:self fields={field.fields} {formData} selfIndex={index} />
 		</div>
 	{:else if field.type === 'text' || field.type === 'number' || field.type === 'checkbox' || field.type === 'email' || field.type === 'markdown' || field.type === 'password' || field.type === 'textarea'}
-		<Field
+		<Input
 			index={selfIndex ? [selfIndex, index] : index}
 			{formData}
 			type={field.type}
@@ -27,7 +27,7 @@
 			value={field.value}
 		/>
 	{:else if field.type === 'select' || field.type === 'search-select'}
-		<Field
+		<Input
 			index={selfIndex ? [selfIndex, index] : index}
 			{formData}
 			type={field?.type || 'text'}

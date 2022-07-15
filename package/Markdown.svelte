@@ -1,6 +1,5 @@
 <script>import { marked } from 'marked';
 import Prism from 'prismjs';
-// import 'prism-svelte'
 export let text = '';
 marked.setOptions({
     highlight: (code, lang) => {

@@ -1,6 +1,6 @@
 import { SvelteComponentTyped } from "svelte";
 import type { Writable } from 'svelte/store';
-import type { FormStructure } from './AutoForm.svelte';
+import type { FormStructure } from './types';
 declare const __propDef: {
     props: {
         fields: FormStructure[];

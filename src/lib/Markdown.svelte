@@ -2,8 +2,6 @@
 	import { marked } from 'marked';
 	import Prism from 'prismjs';
 
-	// import 'prism-svelte'
-
 	export let text: string = '';
 
 	marked.setOptions({

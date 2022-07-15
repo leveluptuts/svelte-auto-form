@@ -1,4 +1,4 @@
-<script>import Field from './Field.svelte';
+<script>import Input from './Input.svelte';
 export let fields;
 export let formData;
 export let selfIndex = 0;
@@ -12,7 +12,7 @@ export let selfIndex = 0;
 			<svelte:self fields={field.fields} {formData} selfIndex={index} />
 		</div>
 	{:else if field.type === 'text' || field.type === 'number' || field.type === 'checkbox' || field.type === 'email' || field.type === 'markdown' || field.type === 'password' || field.type === 'textarea'}
-		<Field
+		<Input
 			index={selfIndex ? [selfIndex, index] : index}
 			{formData}
 			type={field.type}
@@ -24,7 +24,7 @@ export let selfIndex = 0;
 			value={field.value}
 		/>
 	{:else if field.type === 'select' || field.type === 'search-select'}
-		<Field
+		<Input
 			index={selfIndex ? [selfIndex, index] : index}
 			{formData}
 			type={field?.type || 'text'}
