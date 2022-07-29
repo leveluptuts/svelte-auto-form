@@ -181,7 +181,7 @@ function getOption(option, property) {
   display: inline-block;
 }
 .auto_form_field-wrapper .instructions {
-  font-size: var(--smallFontSize);
+  font-size: var(--small_font_size);
   margin-left: 1rem;
   opacity: 0.7;
 }
@@ -232,8 +232,8 @@ select {
 }
 
 :global(.multiselect .options) {
-  background: var(--cardBg);
-  color: var(--cardColor, --sheetColor);
+  background: var(--card_bg);
+  color: var(--cardColor, --sheet_color);
   box-shadow: var(--level-3);
   border-top: solid 1px rgba(255, 255, 255, 0.1);
   border-bottom: solid 1px rgba(0, 0, 0, 0.2);
