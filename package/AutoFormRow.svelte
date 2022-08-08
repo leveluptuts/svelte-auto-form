@@ -1,7 +1,8 @@
-<script>import Input from './Input.svelte';
-export let fields;
-export let formData;
-export let selfIndex = 0;
+<script>
+	import Input from './Input.svelte';
+	export let fields;
+	export let formData;
+	export let selfIndex = 0;
 </script>
 
 {#each fields as field, index (field)}

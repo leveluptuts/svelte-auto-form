@@ -4,6 +4,7 @@ import AutoFormRow from './AutoFormRow.svelte';
 export let input = [];
 // Starting data
 export let model;
+export let show_submit = true;
 export let data = {};
 export let action = (localFormData) => {
     console.log('Your form is not connected to an action. Please add an action property to <AutoForm />', localFormData);
@@ -137,7 +138,9 @@ $: {
 <form on:submit|preventDefault={onSubmit}>
 	<AutoFormRow fields={$formData} {model} {formData} />
 	<slot />
-	<p>
-		<button>{submitText}</button>
-	</p>
+	{#if show_submit}
+		<p>
+			<button>{submitText}</button>
+		</p>
+	{/if}
 </form>

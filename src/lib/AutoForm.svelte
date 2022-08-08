@@ -8,6 +8,7 @@
 	export let input: FormInput[] = [];
 	// Starting data
 	export let model;
+	export let show_submit: boolean = true;
 
 	export let data: any = {};
 
@@ -164,7 +165,9 @@
 <form on:submit|preventDefault={onSubmit}>
 	<AutoFormRow fields={$formData} {model} {formData} />
 	<slot />
-	<p>
-		<button>{submitText}</button>
-	</p>
+	{#if show_submit}
+		<p>
+			<button>{submitText}</button>
+		</p>
+	{/if}
 </form>

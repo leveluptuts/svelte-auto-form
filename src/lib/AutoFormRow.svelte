@@ -11,7 +11,7 @@
 	{#if field.name === '-'}
 		<hr />
 	{:else if field.type === 'group'}
-		<div class="grid">
+		<div>
 			<svelte:self fields={field.fields} {formData} selfIndex={index} />
 		</div>
 	{:else if field.type === 'text' || field.type === 'number' || field.type === 'checkbox' || field.type === 'email' || field.type === 'markdown' || field.type === 'password' || field.type === 'textarea'}

@@ -5,6 +5,7 @@ declare const __propDef: {
     props: {
         input?: FormInput[];
         model: any;
+        show_submit?: boolean;
         data?: any;
         action?: (localFormData: any) => void;
         submitText?: string;
