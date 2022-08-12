@@ -119,7 +119,7 @@
 					{...rest}
 				/>
 			{:else if type === 'markdown'}
-				<div class="split">
+				<div class="split" {style}>
 					<textarea
 						{id}
 						class="auto_form_input-textarea auto_form_input"
@@ -128,9 +128,10 @@
 						{required}
 						{value}
 						{name}
+						{style}
 						{...rest}
 					/>
-					<div>
+					<div style="overflow: scroll;">
 						<MarkdownRenderer text={value + ''} />
 					</div>
 				</div>

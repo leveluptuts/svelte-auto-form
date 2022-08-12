@@ -1,15 +1,16 @@
 {
+  "author": "Scott Tolinski | Level Up Tutorials",
   "dependencies": {
-    "just-safe-get": "^4.0.1",
+    "just-safe-get": "^4.1.1",
     "marked": "^4.0.7",
     "prismjs": "^1.25.0",
-    "svelte-multiselect": "^5.0.1",
+    "svelte-multiselect": "^5.0.6",
     "svelte-tags-input": "^2.8.1"
   },
   "devDependencies": {
-    "@sveltejs/kit": "1.0.0-next.403",
-    "@typescript-eslint/eslint-plugin": "^5.30.7",
-    "@typescript-eslint/parser": "^5.30.7",
+    "@sveltejs/kit": "1.0.0-next.405",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
     "eslint": "^8.21.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte3": "^4.0.0",
@@ -23,7 +24,7 @@
   },
   "name": "@leveluptuts/auto-form",
   "type": "module",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "exports": {
     "./package.json": "./package.json",
     "./AutoForm.svelte": "./AutoForm.svelte",
