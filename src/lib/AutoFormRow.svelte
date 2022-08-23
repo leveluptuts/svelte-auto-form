@@ -7,6 +7,7 @@
 	export let selfIndex = 0;
 </script>
 
+<!-- TODO required fields -->
 {#each fields as field, index (field)}
 	{#if field.name === '-'}
 		<hr />

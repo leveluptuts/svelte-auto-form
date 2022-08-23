@@ -2,6 +2,7 @@
 	import { marked } from 'marked';
 	import Prism from 'prismjs';
 
+	console.error('HI');
 	export let text: string = '';
 
 	marked.setOptions({

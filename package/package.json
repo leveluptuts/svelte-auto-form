@@ -1,38 +1,38 @@
 {
-  "author": "Scott Tolinski | Level Up Tutorials",
-  "dependencies": {
-    "just-safe-get": "^4.1.1",
-    "marked": "^4.0.7",
-    "prismjs": "^1.25.0",
-    "svelte-multiselect": "^5.0.6",
-    "svelte-tags-input": "^2.8.1"
-  },
-  "devDependencies": {
-    "@sveltejs/kit": "1.0.0-next.405",
-    "@typescript-eslint/eslint-plugin": "^5.33.0",
-    "@typescript-eslint/parser": "^5.33.0",
-    "eslint": "^8.21.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-svelte3": "^4.0.0",
-    "prettier": "^2.7.1",
-    "prettier-plugin-svelte": "^2.5.1",
-    "svelte": "3.49.0",
-    "svelte-check": "^2.2.11",
-    "svelte-preprocess": "^4.10.1",
-    "tslib": "^2.3.1",
-    "typescript": "^4.7.4"
-  },
-  "name": "@leveluptuts/auto-form",
-  "type": "module",
-  "version": "0.1.6",
-  "exports": {
-    "./package.json": "./package.json",
-    "./AutoForm.svelte": "./AutoForm.svelte",
-    "./AutoFormRow.svelte": "./AutoFormRow.svelte",
-    "./Input.svelte": "./Input.svelte",
-    "./Markdown.svelte": "./Markdown.svelte",
-    ".": "./index.js",
-    "./types": "./types.js"
-  },
-  "svelte": "./index.js"
+	"author": "Scott Tolinski | Level Up Tutorials",
+	"dependencies": {
+		"just-safe-get": "^4.1.1",
+		"marked": "^4.0.7",
+		"prismjs": "git@github.com:stolinski/prism.git",
+		"svelte-multiselect": "^5.0.6",
+		"svelte-tags-input": "^2.8.1"
+	},
+	"devDependencies": {
+		"@sveltejs/kit": "1.0.0-next.411",
+		"@typescript-eslint/eslint-plugin": "^5.33.0",
+		"@typescript-eslint/parser": "^5.33.0",
+		"eslint": "^8.21.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-svelte3": "^4.0.0",
+		"prettier": "^2.7.1",
+		"prettier-plugin-svelte": "^2.5.1",
+		"svelte": "3.49.0",
+		"svelte-check": "^2.2.11",
+		"svelte-preprocess": "^4.10.1",
+		"tslib": "^2.3.1",
+		"typescript": "^4.7.4"
+	},
+	"exports": {
+		".": "./index.js",
+		"./AutoForm.svelte": "./AutoForm.svelte",
+		"./AutoFormRow.svelte": "./AutoFormRow.svelte",
+		"./Input.svelte": "./Input.svelte",
+		"./Markdown.svelte": "./Markdown.svelte",
+		"./package.json": "./package.json",
+		"./types": "./types.js"
+	},
+	"name": "@leveluptuts/auto-form",
+	"svelte": "./index.js",
+	"type": "module",
+	"version": "0.1.6"
 }

@@ -12,6 +12,12 @@
 
 	export let data: any = {};
 
+	// For v2
+	// TODO: Required field
+	// TODO: Change action to on:submit
+	// TODO: Multiple types for input -> string/text, number/int/double/decimal, checkbox/bool, select/enum
+	// TODO: Rename Model and Input to InitialData and Schema
+
 	export let action = (localFormData) => {
 		console.log(
 			'Your form is not connected to an action. Please add an action property to <AutoForm />',
