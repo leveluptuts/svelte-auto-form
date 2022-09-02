@@ -43,7 +43,7 @@ https://svelte.dev/repl/a868a8e86b6f4891a6305d6d0e024b36?version=3.44.2
 					options: ['#333', '#fff']
 				},
 				{
-					name: 'isPremium',
+					name: 'pro',
 					type: 'checkbox'
 				},
 				{

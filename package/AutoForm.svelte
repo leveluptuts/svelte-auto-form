@@ -1,22 +1,23 @@
 <script>import { writable, derived } from 'svelte/store';
 import AutoFormRow from './AutoFormRow.svelte';
+import { createEventDispatcher } from 'svelte';
+// TODO: search select work with nested display properties
 // Input is the data the data that determines the form fields and types
-export let input = [];
+export let schema = [];
 // Starting data
-export let model;
+export let initial_data = null;
 export let show_submit = true;
 export let data = {};
-export let action = (localFormData) => {
-    console.log('Your form is not connected to an action. Please add an action property to <AutoForm />', localFormData);
-};
+export let CustomButton = null;
+const dispatch = createEventDispatcher();
 export let submitText = 'Submit';
-function buildValues(item, model) {
+function buildValues(item, initial_data) {
     // If the input is a string, build rest of object
     // As String
     if (typeof item === 'string') {
         // If model data exists add that as value, otherwise make it an empty string
         let value = '';
-        value = model?.[item] ? model?.[item] : '';
+        value = initial_data?.[item] ? initial_data?.[item] : '';
         return {
             name: item,
             label: item,
@@ -29,8 +30,9 @@ function buildValues(item, model) {
     if (item?.name && !item?.type) {
         // If model data exists add that as value, otherwise make it an empty string
         let value = '';
-        value = model?.[item.name] ? model?.[item.name] : '';
+        value = initial_data?.[item.name] ? initial_data?.[item.name] : '';
         return {
+            ...item,
             name: item.name,
             label: item.label || item.name,
             value,
@@ -43,7 +45,7 @@ function buildValues(item, model) {
         // If model data exists add that as value, otherwise make it an empty string
         // Get default value
         let value = '';
-        value = model?.[item.name] ? model?.[item.name] : value;
+        value = initial_data?.[item.name] ? initial_data?.[item.name] : value;
         return {
             ...item,
             value,
@@ -62,7 +64,7 @@ function buildValues(item, model) {
             value = [];
         if (item.type === 'number')
             value = 0;
-        value = model?.[item.name] ? model?.[item.name] : value;
+        value = initial_data?.[item.name] ? initial_data?.[item.name] : value;
         return {
             ...item,
             value,
@@ -70,29 +72,29 @@ function buildValues(item, model) {
         };
     }
 }
-function formatData(input, model) {
-    return input.map((item) => {
+function formatData(schema, initial_data) {
+    return schema.map((item) => {
         if (typeof item === 'string')
-            return buildValues(item, model);
+            return buildValues(item, initial_data);
         // SelectStructure
         // If type is "group"
         if (item?.type === 'group') {
             const groupedItems = item.fields.map((deepItem) => {
-                return buildValues(deepItem, model);
+                return buildValues(deepItem, initial_data);
             });
             return {
                 ...item,
                 fields: groupedItems
             };
         }
-        return buildValues(item, model);
+        return buildValues(item, initial_data);
     });
 }
 // First take data and massage it with model into FormStructure
 // Then take the FormStructure and turn it into a writeable
 // If value is a string, make an object with name as the
 // property and value as the value
-let formDataFormatted = formatData(input, model);
+let formDataFormatted = formatData(schema, initial_data);
 // Form data should be the TRUTH of the form state.
 // ie is always up to date with what is displayed in the input
 const formData = writable(formDataFormatted);
@@ -125,22 +127,21 @@ export const formReturn = derived(formData, ($formDataInt) => {
 });
 // Pass the data up to bound variable
 $: data = $formReturn;
-// Returns the internal store based on the data
-function onSubmit() {
-    action($formReturn);
-}
 $: {
-    formDataFormatted = formatData(input, model);
+    formDataFormatted = formatData(schema, initial_data);
     $formData = formDataFormatted;
 }
 </script>
 
-<form on:submit|preventDefault={onSubmit}>
-	<AutoFormRow fields={$formData} {model} {formData} />
+<form on:submit|preventDefault={() => dispatch('submit', $formReturn)}>
+	<AutoFormRow fields={$formData} {formData} />
 	<slot />
-	{#if show_submit}
+	{#if show_submit && !CustomButton}
 		<p>
 			<button>{submitText}</button>
 		</p>
+	{/if}
+	{#if CustomButton}
+		<svelte:component this={CustomButton} />
 	{/if}
 </form>

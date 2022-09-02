@@ -11,7 +11,7 @@ export let selfIndex = 0;
 		<div class="auto_form_group">
 			<svelte:self fields={field.fields} {formData} selfIndex={index} />
 		</div>
-	{:else if field.type === 'text' || field.type === 'number' || field.type === 'checkbox' || field.type === 'email' || field.type === 'markdown' || field.type === 'password' || field.type === 'textarea'}
+	{:else if field.type === 'text' || field.type === 'number' || field.type === 'checkbox' || field.type === 'email' || field.type === 'password' || field.type === 'textarea' || field.type === 'tag'}
 		<Input
 			index={selfIndex ? [selfIndex, index] : index}
 			{formData}
@@ -20,6 +20,7 @@ export let selfIndex = 0;
 			name={field.name}
 			style={field.style}
 			readonly={field.readonly}
+			required={field.required}
 			placeholder={field.placeholder}
 			value={field.value}
 		/>
@@ -32,6 +33,7 @@ export let selfIndex = 0;
 			label={field.label || field.name}
 			name={field.name}
 			readonly={field.readonly}
+			required={field.required}
 			value={field.value}
 			valueProperty={field.valueProperty}
 			displayProperty={field.displayProperty}

@@ -1,17 +1,19 @@
 import { SvelteComponentTyped } from "svelte";
 import type { Readable } from 'svelte/store';
-import type { FormInput, ReturnStructure } from './types';
+import type { ReturnStructure, InitialData, AutoFormSchema } from './types';
 declare const __propDef: {
     props: {
-        input?: FormInput[];
-        model: any;
+        schema?: AutoFormSchema;
+        initial_data?: InitialData;
         show_submit?: boolean;
         data?: any;
-        action?: (localFormData: any) => void;
+        CustomButton?: any;
         submitText?: string;
         formReturn?: Readable<ReturnStructure>;
     };
     events: {
+        submit: CustomEvent<any>;
+    } & {
         [evt: string]: CustomEvent<any>;
     };
     slots: {

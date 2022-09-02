@@ -1,14 +1,9 @@
-<script lang="ts">
-	import type { Writable } from 'svelte/store';
-	import type { FormTypes, FormStructure } from './types';
-	import type { Option } from 'svelte-multiselect';
+<script>
 	import MultiSelect from 'svelte-multiselect';
 	import Tags from 'svelte-tags-input';
 	import get from 'just-safe-get';
-	import MarkdownRenderer from './Markdown.svelte';
-
 	// Required
-	export let type: FormTypes = 'text';
+	export let type = 'text';
 	// Optional
 	export let required = false;
 	export let autocomplete = '';
@@ -16,24 +11,37 @@
 	export let forceLowercase = false;
 	export let forceUppercase = false;
 	export let instructions = '';
-	export let label: string = '';
+	export let label = '';
 	export let name = '';
-	export let onEnter: () => any = undefined;
+	export let onEnter = undefined;
 	export let placeholder = '';
 	export let rest = {};
 	export let style = '';
+	// Search Select
 
-	export let value: string | boolean | number | Option = '';
+	export let value = '';
 	export let id = '';
 	export let valueProperty = '';
 	export let displayProperty = '';
 	export let readonly = false;
 	export let options = [];
-	export let index: number | number[] = 0;
-	export let formData: Writable<FormStructure[]> = undefined;
-
+	export let index = 0;
+	export let formData = undefined;
 	// For multi select
-	export let selected = [{ value, label: value }];
+	export let selected = null;
+	let multi_options;
+
+	$: if (type === 'search-select' && valueProperty && displayProperty) {
+		let index = options.findIndex((item) => get(item, valueProperty) === value);
+		selected = [{ value, label: get(options[index], displayProperty) }];
+		multi_options = options.map((option) => ({
+			value: get(option, valueProperty),
+			label: get(option, displayProperty)
+		}));
+	} else if (type === 'search-select') {
+		selected = [value];
+		multi_options = options;
+	}
 
 	const handleInput = (event) => {
 		// in here, you can switch on type and implement
@@ -41,40 +49,36 @@
 		if (event?.target?.value) {
 			value = event.target.value;
 		}
-
 		if (type?.match(/^(number|range)$/)) {
 			value = +event.target.value;
 		}
-
 		if (forceUppercase && typeof value === 'string') value = value.toUpperCase();
 		if (forceLowercase && typeof value === 'string') value = value.toLowerCase();
-
 		// Don't use value if checkbox
 		if (type === 'checkbox') {
 			value = event.target.checked;
 		}
-		// Don't use value if checkbox
-		if (type === 'search-select') {
-			value = event.detail.option.value;
-		}
 
+		if (type === 'search-select') {
+			if (typeof event.detail.option === 'object') {
+				value = event.detail.option.value;
+			} else {
+				value = event.detail.option;
+			}
+		}
 		formData?.update((prev) => {
 			let tempData = prev;
-
 			if (Array.isArray(index)) {
 				tempData[index[0]].fields[index[1]].value = value;
 			} else {
 				tempData[index].value = value;
 			}
-
 			return tempData;
 		});
 	};
-
-	const handleKeypress = (event: KeyboardEvent) => {
+	const handleKeypress = (event) => {
 		if (onEnter && event.code === 'Enter') onEnter();
 	};
-
 	function getOption(option, property) {
 		if (typeof option === 'string') return option;
 		return get(option, property);
@@ -85,7 +89,9 @@
 	<label class="auto_form_label" for={name}>
 		{#if type === 'checkbox'}
 			<div class="checkbox">
-				<span class="auto_form_title">{label}</span>
+				<span class="auto_form_title"
+					>{label}{#if required} *{/if}</span
+				>
 				<input
 					{id}
 					type="checkbox"
@@ -99,7 +105,9 @@
 		{:else}
 			<div>
 				{#if label}
-					<span class="auto_form_title">{label}</span>
+					<span class="auto_form_title"
+						>{label}{#if required} *{/if}</span
+					>
 				{/if}
 				{#if instructions}
 					<span class="instructions">{instructions}</span>
@@ -118,31 +126,16 @@
 					{style}
 					{...rest}
 				/>
-			{:else if type === 'markdown'}
-				<div class="split" {style}>
-					<textarea
-						{id}
-						class="auto_form_input-textarea auto_form_input"
-						on:input={handleInput}
-						on:keypress={handleKeypress}
-						{required}
-						{value}
-						{name}
-						{style}
-						{...rest}
-					/>
-					<div style="overflow: scroll;">
-						<MarkdownRenderer text={value + ''} />
-					</div>
-				</div>
 			{:else if type === 'tag'}
-				<Tags
-					addKeys={[9]}
-					tags={value}
-					on:tags={(e) => {
-						value = e.detail.tags;
-					}}
-				/>
+				<div class="auto_form_input">
+					<Tags
+						addKeys={[9]}
+						tags={value}
+						on:tags={(e) => {
+							value = e.detail.tags;
+						}}
+					/>
+				</div>
 			{:else if type === 'select'}
 				<select
 					{id}
@@ -161,13 +154,10 @@
 				</select>
 			{:else if type === 'search-select'}
 				<MultiSelect
-					--sms-border="solid 1px grey"
-					--sms-border-radius="3px"
-					maxSelect={1}
 					disabled={readonly}
 					bind:selected
 					on:change={handleInput}
-					{options}
+					options={multi_options}
 				/>
 			{:else}
 				<input
@@ -189,47 +179,40 @@
 	</label>
 </div>
 
-<style lang="scss">
-	.auto_form_field-wrapper {
-		&.inline {
-			display: inline-block;
-		}
-
-		.instructions {
-			font-size: var(--small_font_size);
-			margin-left: 1rem;
-			opacity: 0.7;
-		}
-
-		.auto_form_input {
-			margin-top: 0.3rem;
-		}
-
-		.checkbox {
-			margin-right: 0.6rem;
-
-			input[type='checkbox'] {
-				margin-right: 0.6rem;
-				transform: scale(1.6);
-			}
-		}
-
-		textarea {
-			min-height: 6rem;
-			padding: 0.6rem 1rem;
-		}
+<style>
+	.auto_form_field-wrapper.inline {
+		display: inline-block;
+	}
+	.auto_form_field-wrapper .instructions {
+		font-size: var(--small_font_size);
+		margin-left: 1rem;
+		opacity: 0.7;
+	}
+	.auto_form_field-wrapper .auto_form_input {
+		margin-top: 0.3rem;
+	}
+	.auto_form_field-wrapper .checkbox {
+		margin-right: 0.6rem;
+	}
+	.auto_form_field-wrapper .checkbox input[type='checkbox'] {
+		margin-right: 0.6rem;
+		transform: scale(1.6);
+	}
+	.auto_form_field-wrapper textarea {
+		min-height: 6rem;
+		padding: 0.6rem 1rem;
 	}
 
 	:global(.svelte-tags-input-tag) {
-		background: var(--grey) !important;
+		background: var(--bg, transparent) !important;
 		border-radius: 5px !important;
-		color: var(--black) !important;
+		color: var(--fg, black) !important;
 		display: inline-block !important;
 		padding: 0 5px !important;
 	}
 
 	:global(.svelte-tags-input-layout) {
-		border: 1px solid gray !important;
+		border: none !important;
 	}
 
 	:global(.svelte-tags-input-layout),
@@ -244,17 +227,17 @@
 	.split {
 		display: flex;
 		gap: 10px;
-		> * {
-			width: 50%;
-			resize: both;
-			overflow: hidden;
-		}
+	}
+	.split > * {
+		width: 50%;
+		resize: both;
+		overflow: hidden;
 	}
 
 	:global(.multiselect .options) {
-		background: var(--card_bg);
-		color: var(--cardColor, --sheet_color);
-		box-shadow: var(--level-3);
+		background: var(--af_ss_bg, #fff);
+		color: var(--af_ss_color, #000);
+		box-shadow: var(--af_ss_shadow);
 		border-top: solid 1px rgba(255, 255, 255, 0.1);
 		border-bottom: solid 1px rgba(0, 0, 0, 0.2);
 	}

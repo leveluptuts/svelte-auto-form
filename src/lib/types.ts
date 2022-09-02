@@ -10,8 +10,7 @@ export type FormTypes =
 	| 'password'
 	| 'email'
 	| 'select'
-	| 'search-select'
-	| 'markdown';
+	| 'search-select';
 
 export interface StringInput {
 	name: string;
@@ -50,12 +49,14 @@ export interface SelectInput {
 }
 
 export type FormInput = StringInput | StandardInput | GroupInput | string | SelectInput;
+export type AutoFormSchema = FormInput[];
 
 export interface StandardStructure {
 	name: string;
 	type: FormTypes;
 	value: string | boolean | number;
 	readonly?: boolean;
+	required?: boolean;
 	label?: string;
 	options?: never;
 	valueProperty?: never;
@@ -67,13 +68,16 @@ export interface StandardStructure {
 
 export interface SelectStructure {
 	name: string;
+	placeholder?: never;
 	type: FormTypes;
 	value: string | boolean | number | Option;
 	readonly?: boolean;
+	required?: boolean;
 	label?: string;
 	options: string[] | object[];
 	valueProperty?: string;
 	displayProperty?: string;
+	style?: string;
 	fields?: never;
 }
 
@@ -93,3 +97,7 @@ export type FormStructure = StandardStructure | SelectStructure | GroupStructure
 export type ReturnStructure = {
 	[id: string]: string | boolean | number;
 };
+
+export interface InitialData {
+	[id: string]: any;
+}
