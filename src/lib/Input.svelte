@@ -228,11 +228,6 @@
 		display: flex;
 		gap: 10px;
 	}
-	.split > * {
-		width: 50%;
-		resize: both;
-		overflow: hidden;
-	}
 
 	:global(.multiselect .options) {
 		background: var(--af_ss_bg, #fff);

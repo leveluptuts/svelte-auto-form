@@ -1,13 +1,16 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import AutoForm from '$lib/AutoForm.svelte';
 	import Input from '$lib/Input.svelte';
 	import CustomButton from '$lib/CustomButton.svelte';
+	import Inputs from '$lib/Inputs.svelte';
 
 	let schema = [
 		{
 			name: '_id',
 			// Readonly for non edit fields, display only
-			readonly: true
+			readonly: true,
+			meta: true
 		},
 		// Single string is a type text
 		'title',
@@ -22,6 +25,7 @@
 		{
 			name: 'status',
 			type: 'select',
+			meta: true,
 			options: ['active', 'hidden']
 		},
 		{
@@ -79,3 +83,19 @@
 <Input name="select" type="search-select" options={['hello', 'hi']} bind:value={selected} />
 
 {JSON.stringify(selected)}
+
+<form
+	method="POST"
+	use:enhance={(event) => {
+		console.log(event);
+	}}
+>
+	<Inputs
+		fields={schema}
+		{CustomButton}
+		initial_data={{
+			_id: 'asdfasdfasdf',
+			title: 'Hello'
+		}}
+	/>
+</form>
