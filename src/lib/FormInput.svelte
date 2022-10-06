@@ -1,4 +1,5 @@
-<script lang="ts">
+<script>
+	import { onMount } from 'svelte';
 	import MultiSelect from 'svelte-multiselect';
 	import Tags from './Tag.svelte';
 	import get from 'just-safe-get';
@@ -8,27 +9,28 @@
 	export let required = false;
 	export let autocomplete = '';
 	export let displayInline = false;
-
 	export let instructions = '';
 	export let label = '';
 	export let name = '';
-
 	export let placeholder = '';
 	export let rest = {};
 	export let style = '';
-	export let value: any = '';
+	export let value = '';
 	export let id = '';
 	export let valueProperty = '';
 	export let displayProperty = '';
 	export let readonly = false;
 	export let options = [];
 	// For multi select
-	export let selected = null;
+	export let selected = [];
+
 	let multi_options;
 
-	$: if (type === 'search-select' && valueProperty && displayProperty) {
+	onMount(() => {
 		let index = options.findIndex((item) => get(item, valueProperty) === value);
-		selected = [{ value, label: get(options[index], displayProperty) }];
+		selected = value ? [{ value, label: get(options[index], displayProperty) }] : [];
+	});
+	$: if (type === 'search-select' && valueProperty && displayProperty) {
 		multi_options = options.map((option) => ({
 			value: get(option, valueProperty),
 			label: get(option, displayProperty)
@@ -50,8 +52,9 @@
 			<span class="auto_form_title"
 				>{label.replaceAll('_', ' ').replaceAll('-', ' ')}{#if required} *{/if}</span
 			>
-			<input {id} {name} type="checkbox" {readonly} {required} checked={value} {...rest} />
-			<label for={name} class="af_toggle_button" />
+			<input type="text" value={value.toString()} {id} {name} hidden />
+			<input type="checkbox" bind:checked={value} {...rest} id={name + 'check'} />
+			<label for={name + 'check'} class="af_toggle_button" />
 		</div>
 	{:else}
 		<label class="auto_form_label" for={name}>
@@ -102,7 +105,8 @@
 					{/each}
 				</select>
 			{:else if type === 'search-select'}
-				<MultiSelect disabled={readonly} bind:selected options={multi_options} />
+				<input type="text" value={selected?.[0]?.value} {name} hidden={true} />
+				<MultiSelect disabled={readonly} bind:selected options={multi_options} maxSelect={1} />
 			{:else}
 				<!-- {#if readonly}
 					<input {value} {required} hidden {name} {type} {...rest} />
