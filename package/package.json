@@ -7,7 +7,7 @@
   },
   "devDependencies": {
     "@leveluptuts/svelte-toy": "2.0.3",
-    "@sveltejs/kit": "1.0.0-next.512",
+    "@sveltejs/kit": "1.0.0-next.516",
     "@sveltejs/package": "1.0.0-next.5",
     "@typescript-eslint/eslint-plugin": "^5.39.0",
     "@typescript-eslint/parser": "^5.39.0",
@@ -21,7 +21,7 @@
     "svelte-preprocess": "^4.10.1",
     "tslib": "^2.3.1",
     "typescript": "^4.8.4",
-    "vite": "3.1.7"
+    "vite": "3.1.8"
   },
   "name": "@leveluptuts/auto-form",
   "type": "module",
