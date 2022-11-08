@@ -7,11 +7,11 @@
 	},
 	"devDependencies": {
 		"@leveluptuts/svelte-toy": "2.0.3",
-		"@sveltejs/kit": "1.0.0-next.524",
+		"@sveltejs/kit": "1.0.0-next.538",
 		"@sveltejs/package": "1.0.0-next.5",
-		"@typescript-eslint/eslint-plugin": "^5.41.0",
-		"@typescript-eslint/parser": "^5.41.0",
-		"eslint": "^8.26.0",
+		"@typescript-eslint/eslint-plugin": "^5.42.1",
+		"@typescript-eslint/parser": "^5.42.1",
+		"eslint": "^8.27.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"prettier": "^2.7.1",
@@ -19,9 +19,9 @@
 		"svelte": "3.52.0",
 		"svelte-check": "^2.9.1",
 		"svelte-preprocess": "^4.10.1",
-		"tslib": "^2.3.1",
+		"tslib": "^2.4.1",
 		"typescript": "^4.8.4",
-		"vite": "3.1.8"
+		"vite": "3.2.3"
 	},
 	"name": "@leveluptuts/auto-form",
 	"scripts": {

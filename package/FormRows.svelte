@@ -1,5 +1,6 @@
-<script>import Input from './FormInput.svelte';
-export let fields;
+<script>
+	import Input from './FormInput.svelte';
+	export let fields;
 </script>
 
 {#if fields}
@@ -10,7 +11,7 @@ export let fields;
 			<div class="auto_form_group">
 				<svelte:self fields={field.fields} />
 			</div>
-		{:else if field.type === 'text' || field.type === 'number' || field.type === 'checkbox' || field.type === 'email' || field.type === 'password' || field.type === 'textarea' || field.type === 'tag'}
+		{:else if field.type === 'text' || field.type === 'number' || field.type === 'checkbox' || field.type === 'email' || field.type === 'password' || field.type === 'textarea' || field.type === 'tag' || field.type === 'date'}
 			<Input
 				type={field.type}
 				label={field.label || field.name}

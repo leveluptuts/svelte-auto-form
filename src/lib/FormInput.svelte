@@ -26,6 +26,10 @@
 
 	let multi_options;
 
+	$: if (type === 'date') {
+		value = value ? new Date(value) : new Date();
+	}
+
 	onMount(() => {
 		let index = options.findIndex((item) => get(item, valueProperty) === value);
 		selected = value ? [{ value, label: get(options[index], displayProperty) }] : [];
@@ -107,6 +111,19 @@
 			{:else if type === 'search-select'}
 				<input type="text" value={selected?.[0]?.value} {name} hidden={true} />
 				<MultiSelect disabled={readonly} bind:selected options={multi_options} maxSelect={1} />
+			{:else if type === 'date'}
+				<input
+					{id}
+					value={new Date(value).toISOString().substring(0, 10)}
+					{readonly}
+					{required}
+					{name}
+					{autocomplete}
+					{placeholder}
+					{type}
+					class="auto_form_input auto_form_date"
+					{...rest}
+				/>
 			{:else}
 				<!-- {#if readonly}
 					<input {value} {required} hidden {name} {type} {...rest} />
