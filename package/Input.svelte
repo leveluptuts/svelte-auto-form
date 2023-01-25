@@ -1,6 +1,7 @@
 <script>
+	import { onMount } from 'svelte';
 	import MultiSelect from 'svelte-multiselect';
-	import Tags from 'svelte-tags-input';
+	import Tags from './Tag.svelte';
 	import get from 'just-safe-get';
 	// Required
 	export let type = 'text';
@@ -8,32 +9,32 @@
 	export let required = false;
 	export let autocomplete = '';
 	export let displayInline = false;
-	export let forceLowercase = false;
-	export let forceUppercase = false;
 	export let instructions = '';
 	export let label = '';
 	export let name = '';
-	export let onEnter = undefined;
 	export let placeholder = '';
 	export let rest = {};
 	export let style = '';
-	// Search Select
-
 	export let value = '';
 	export let id = '';
 	export let valueProperty = '';
 	export let displayProperty = '';
 	export let readonly = false;
 	export let options = [];
-	export let index = 0;
-	export let formData = undefined;
 	// For multi select
-	export let selected = null;
+	export let selected = [];
+
 	let multi_options;
 
-	$: if (type === 'search-select' && valueProperty && displayProperty) {
+	$: if (type === 'date') {
+		value = value ? new Date(value) : new Date();
+	}
+
+	onMount(() => {
 		let index = options.findIndex((item) => get(item, valueProperty) === value);
-		selected = [{ value, label: get(options[index], displayProperty) }];
+		selected = value ? [{ value, label: get(options[index], displayProperty) }] : [];
+	});
+	$: if (type === 'search-select' && valueProperty && displayProperty) {
 		multi_options = options.map((option) => ({
 			value: get(option, valueProperty),
 			label: get(option, displayProperty)
@@ -43,42 +44,6 @@
 		multi_options = options;
 	}
 
-	const handleInput = (event) => {
-		// in here, you can switch on type and implement
-		// whatever behavior you need
-		if (event?.target?.value) {
-			value = event.target.value;
-		}
-		if (type?.match(/^(number|range)$/)) {
-			value = +event.target.value;
-		}
-		if (forceUppercase && typeof value === 'string') value = value.toUpperCase();
-		if (forceLowercase && typeof value === 'string') value = value.toLowerCase();
-		// Don't use value if checkbox
-		if (type === 'checkbox') {
-			value = event.target.checked;
-		}
-
-		if (type === 'search-select') {
-			if (typeof event.detail.option === 'object') {
-				value = event.detail.option.value;
-			} else {
-				value = event.detail.option;
-			}
-		}
-		formData?.update((prev) => {
-			let tempData = prev;
-			if (Array.isArray(index)) {
-				tempData[index[0]].fields[index[1]].value = value;
-			} else {
-				tempData[index].value = value;
-			}
-			return tempData;
-		});
-	};
-	const handleKeypress = (event) => {
-		if (onEnter && event.code === 'Enter') onEnter();
-	};
 	function getOption(option, property) {
 		if (typeof option === 'string') return option;
 		return get(option, property);
@@ -86,27 +51,21 @@
 </script>
 
 <div class="auto_form_field-wrapper" class:inline={displayInline}>
-	<label class="auto_form_label" for={name}>
-		{#if type === 'checkbox'}
-			<div class="checkbox">
-				<span class="auto_form_title"
-					>{label}{#if required} *{/if}</span
-				>
-				<input
-					{id}
-					type="checkbox"
-					checked={!!value}
-					on:change={handleInput}
-					{readonly}
-					{required}
-					{...rest}
-				/>
-			</div>
-		{:else}
+	{#if type === 'checkbox'}
+		<div class="checkbox">
+			<span class="auto_form_title"
+				>{label.replaceAll('_', ' ').replaceAll('-', ' ')}{#if required} *{/if}</span
+			>
+			<input type="text" value={value.toString()} {id} {name} hidden />
+			<input type="checkbox" bind:checked={value} {...rest} id={name + 'check'} />
+			<label for={name + 'check'} class="af_toggle_button" />
+		</div>
+	{:else}
+		<label class="auto_form_label" for={name}>
 			<div>
 				{#if label}
 					<span class="auto_form_title"
-						>{label}{#if required} *{/if}</span
+						>{label.replaceAll('_', ' ').replaceAll('-', ' ')}{#if required} *{/if}</span
 					>
 				{/if}
 				{#if instructions}
@@ -117,18 +76,17 @@
 				<textarea
 					{id}
 					class="auto_form_input-textarea auto_form_input"
-					on:input={handleInput}
-					on:keypress={handleKeypress}
 					{placeholder}
 					{required}
-					{value}
 					{name}
 					{style}
+					{value}
 					{...rest}
 				/>
 			{:else if type === 'tag'}
 				<div class="auto_form_input">
 					<Tags
+						{name}
 						addKeys={[9]}
 						tags={value}
 						on:tags={(e) => {
@@ -138,11 +96,9 @@
 				</div>
 			{:else if type === 'select'}
 				<select
+					{value}
 					{id}
 					{required}
-					{value}
-					on:input={handleInput}
-					on:keypress={handleKeypress}
 					class="auto_form_input auto_form_input-select f-select"
 					{name}
 				>
@@ -153,30 +109,40 @@
 					{/each}
 				</select>
 			{:else if type === 'search-select'}
-				<MultiSelect
-					disabled={readonly}
-					bind:selected
-					on:change={handleInput}
-					options={multi_options}
-				/>
-			{:else}
+				<input type="text" value={selected?.[0]?.value} {name} hidden={true} />
+				<MultiSelect disabled={readonly} bind:selected options={multi_options} maxSelect={1} />
+			{:else if type === 'date'}
 				<input
 					{id}
+					value={new Date(value).toISOString().substring(0, 10)}
 					{readonly}
 					{required}
-					on:input={handleInput}
-					on:keypress={handleKeypress}
 					{name}
 					{autocomplete}
 					{placeholder}
 					{type}
+					class="auto_form_input auto_form_date"
+					{...rest}
+				/>
+			{:else}
+				<!-- {#if readonly}
+					<input {value} {required} hidden {name} {type} {...rest} />
+				{/if} -->
+				<input
+					{id}
 					{value}
+					{readonly}
+					{required}
+					{name}
+					{autocomplete}
+					{placeholder}
+					{type}
 					class="auto_form_input"
 					{...rest}
 				/>
 			{/if}
-		{/if}
-	</label>
+		</label>
+	{/if}
 </div>
 
 <style>
@@ -192,7 +158,7 @@
 		margin-top: 0.3rem;
 	}
 	.auto_form_field-wrapper .checkbox {
-		margin-right: 0.6rem;
+		margin-bottom: 1rem;
 	}
 	.auto_form_field-wrapper .checkbox input[type='checkbox'] {
 		margin-right: 0.6rem;

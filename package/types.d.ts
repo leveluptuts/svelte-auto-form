@@ -1,39 +1,33 @@
 import type { Option } from 'svelte-multiselect';
-export declare type FormTypes = 'number' | 'text' | 'checkbox' | 'select' | 'tag' | 'textarea' | 'password' | 'email' | 'select' | 'search-select';
-export interface StringInput {
+export type FormTypes = 'number' | 'text' | 'checkbox' | 'select' | 'tag' | 'textarea' | 'password' | 'email' | 'select' | 'search-select';
+interface BaseInput {
     name: string;
     readonly?: boolean;
-    type?: 'text';
+    meta?: boolean;
     label?: string;
-    fields?: never;
-    placeholder?: string;
-}
-export interface StandardInput {
-    name: string;
-    type: FormTypes;
-    readonly?: boolean;
-    label?: string;
-    fields?: never;
     style?: string;
+    required?: boolean;
+}
+export interface StandardInput extends BaseInput {
+    type: FormTypes;
     placeholder?: string;
 }
-export interface GroupInput {
-    name?: never;
-    label?: never;
+export interface StringInput extends BaseInput {
+    type?: 'text';
+    placeholder?: string;
+}
+export interface GroupInput extends BaseInput {
     type: 'group';
     fields: FormInput[];
 }
-export interface SelectInput {
-    name: string;
+export interface SelectInput extends BaseInput {
     type: 'select' | 'search-select';
-    label?: string;
     options: string[] | object[];
     valueProperty?: string;
     displayProperty?: string;
-    fields?: never;
 }
-export declare type FormInput = StringInput | StandardInput | GroupInput | string | SelectInput;
-export declare type AutoFormSchema = FormInput[];
+export type FormInput = StringInput | StandardInput | GroupInput | string | SelectInput;
+export type AutoFormSchema = Array<StringInput | StandardInput | GroupInput | string | SelectInput>;
 export interface StandardStructure {
     name: string;
     type: FormTypes;
@@ -72,10 +66,11 @@ export interface GroupStructure {
     displayProperty?: never;
     value?: never;
 }
-export declare type FormStructure = StandardStructure | SelectStructure | GroupStructure;
-export declare type ReturnStructure = {
+export type FormStructure = StandardStructure | SelectStructure | GroupStructure;
+export type ReturnStructure = {
     [id: string]: string | boolean | number;
 };
 export interface InitialData {
     [id: string]: any;
 }
+export {};

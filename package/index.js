@@ -1,5 +1,4 @@
-export { default as AutoForm } from './AutoForm.svelte';
-export { default as Inputs } from './Inputs.svelte';
+import Inputs from './Inputs.svelte';
+import Input from './Input.svelte';
 export * from './types';
-export { default as Input } from './Input.svelte';
-export { default as AutoFormRow } from './AutoFormRow.svelte';
+export { Input, Inputs };

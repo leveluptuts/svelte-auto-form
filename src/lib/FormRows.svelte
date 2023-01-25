@@ -1,5 +1,5 @@
 <script>
-	import Input from './FormInput.svelte';
+	import Input from './Input.svelte';
 	export let fields;
 </script>
 

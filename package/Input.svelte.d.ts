@@ -6,12 +6,9 @@ export default class Input extends SvelteComponentTyped<{
     required?: boolean;
     autocomplete?: string;
     displayInline?: boolean;
-    forceLowercase?: boolean;
-    forceUppercase?: boolean;
     instructions?: string;
     label?: string;
     name?: string;
-    onEnter?: any;
     placeholder?: string;
     rest?: {};
     style?: string;
@@ -21,9 +18,7 @@ export default class Input extends SvelteComponentTyped<{
     displayProperty?: string;
     readonly?: boolean;
     options?: any[];
-    index?: number;
-    formData?: any;
-    selected?: any;
+    selected?: any[];
 }, {
     [evt: string]: CustomEvent<any>;
 }, {}> {
@@ -38,12 +33,9 @@ declare const __propDef: {
         required?: boolean;
         autocomplete?: string;
         displayInline?: boolean;
-        forceLowercase?: boolean;
-        forceUppercase?: boolean;
         instructions?: string;
         label?: string;
         name?: string;
-        onEnter?: any;
         placeholder?: string;
         rest?: {};
         style?: string;
@@ -53,9 +45,7 @@ declare const __propDef: {
         displayProperty?: string;
         readonly?: boolean;
         options?: any[];
-        index?: number;
-        formData?: any;
-        selected?: any;
+        selected?: any[];
     };
     events: {
         [evt: string]: CustomEvent<any>;

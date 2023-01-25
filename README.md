@@ -1,5 +1,10 @@
 # Svelte Auto Form
 
+## WARING
+
+BIG CHANGES COMING IN V3 TO WORK BETTER WITH SVELTE ACTIONS
+The API is changing considerably for the better.
+
 A fast and fun form library focused on ease of use, rather than flexibility.
 
 ## Demo

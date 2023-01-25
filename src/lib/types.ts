@@ -12,44 +12,38 @@ export type FormTypes =
 	| 'select'
 	| 'search-select';
 
-export interface StringInput {
+interface BaseInput {
 	name: string;
 	readonly?: boolean;
-	type?: 'text';
+	meta?: boolean;
 	label?: string;
-	fields?: never;
-	placeholder?: string;
-}
-
-export interface StandardInput {
-	name: string;
-	type: FormTypes;
-	readonly?: boolean;
-	label?: string;
-	fields?: never;
 	style?: string;
+	required?: boolean;
+}
+
+export interface StandardInput extends BaseInput {
+	type: FormTypes;
+	placeholder?: string;
+}
+export interface StringInput extends BaseInput {
+	type?: 'text';
 	placeholder?: string;
 }
 
-export interface GroupInput {
-	name?: never;
-	label?: never;
+export interface GroupInput extends BaseInput {
 	type: 'group';
 	fields: FormInput[];
 }
 
-export interface SelectInput {
-	name: string;
+export interface SelectInput extends BaseInput {
 	type: 'select' | 'search-select';
-	label?: string;
 	options: string[] | object[];
 	valueProperty?: string;
 	displayProperty?: string;
-	fields?: never;
 }
 
 export type FormInput = StringInput | StandardInput | GroupInput | string | SelectInput;
-export type AutoFormSchema = FormInput[];
+export type AutoFormSchema = Array<StringInput | StandardInput | GroupInput | string | SelectInput>;
 
 export interface StandardStructure {
 	name: string;
