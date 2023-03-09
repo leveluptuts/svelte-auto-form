@@ -48,6 +48,10 @@
 		if (typeof option === 'string') return option;
 		return get(option, property);
 	}
+	function typeAction(node) {
+		node.type = type;
+		console.log('type', type);
+	}
 </script>
 
 <div class="auto_form_field-wrapper" class:inline={displayInline}>
@@ -130,13 +134,13 @@
 				{/if} -->
 				<input
 					{id}
-					{value}
+					bind:value
 					{readonly}
 					{required}
 					{name}
 					{autocomplete}
 					{placeholder}
-					{type}
+					use:typeAction
 					class="auto_form_input"
 					{...rest}
 				/>

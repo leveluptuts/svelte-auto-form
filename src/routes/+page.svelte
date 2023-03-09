@@ -1,8 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import AutoForm from '$lib/AutoForm.svelte';
+	import Form from '$lib/Form.svelte';
 	import Input from '$lib/Input.svelte';
-	import CustomButton from '$lib/CustomButton.svelte';
 	import Inputs from '$lib/Inputs.svelte';
 
 	let schema = [
@@ -53,21 +52,49 @@
 	let selected = 'Hi';
 </script>
 
-<AutoForm
-	bind:data
-	{schema}
-	on:submit={({ detail }) => {
-		console.log(detail);
+<h1>🤖 Transformer</h1>
+
+<h2>Autoform</h2>
+
+<Form
+	fields={schema}
+	initial_data={{
+		_id: '12345',
+		title: 'Hello'
+	}}
+/>
+
+<h2>Auto Inputs</h2>
+
+<p>You would use this when you want more control over the form itself.</p>
+
+<form
+	method="POST"
+	use:enhance={(event) => {
+		console.log(event);
 	}}
 >
-	<CustomButton />
-</AutoForm>
+	<Inputs
+		fields={schema}
+		initial_data={{
+			_id: '12345',
+			title: 'Hello'
+		}}
+	/>
+	<button type="submit">Submit</button>
+</form>
+
+<h2>Just the inputs</h2>
+
+<Input value="Hello" />
+
+<h3>Extra</h3>
 
 {JSON.stringify(data, null, 1)}
 
-<h3>Individual Elements</h3>
-
 <Input label="Label" placeholder="Placeholder" name="text" />
+
+<h3>Search Select</h3>
 
 <Input
 	name="select"
@@ -83,19 +110,3 @@
 <Input name="select" type="search-select" options={['hello', 'hi']} bind:value={selected} />
 
 {JSON.stringify(selected)}
-
-<form
-	method="POST"
-	use:enhance={(event) => {
-		console.log(event);
-	}}
->
-	<Inputs
-		fields={schema}
-		{CustomButton}
-		initial_data={{
-			_id: 'asdfasdfasdf',
-			title: 'Hello'
-		}}
-	/>
-</form>

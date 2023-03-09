@@ -2,9 +2,9 @@ import { SvelteComponentTyped } from "svelte";
 import type { AutoFormSchema, InitialData } from './types';
 declare const __propDef: {
     props: {
-        fields?: AutoFormSchema;
-        meta_active?: boolean;
-        initial_data?: InitialData;
+        fields?: AutoFormSchema | undefined;
+        meta_active?: boolean | undefined;
+        initial_data?: InitialData | undefined;
     };
     events: {
         [evt: string]: CustomEvent<any>;

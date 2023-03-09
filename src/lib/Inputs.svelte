@@ -4,11 +4,11 @@
 
 	export let fields: AutoFormSchema = [];
 	export let meta_active = false;
-
 	// Starting data
 	export let initial_data: InitialData = null;
 
 	let fields_formatted: FormStructure[] = formatData(fields, initial_data);
+
 	$: meta_fields = fields_formatted.filter((field) => field?.meta);
 	$: standard_fields = fields_formatted.filter((field) => !field?.meta);
 
@@ -102,11 +102,12 @@
 
 <div class="af-zone-wrapper">
 	{#if meta_fields.length > 0}
-		<button type="button" on:click|preventDefault={() => (meta_active = true)}>Show Meta</button>
+		<button type="button" on:click|preventDefault={() => (meta_active = !meta_active)}
+			>{meta_active ? 'Hide' : 'Show'} Meta</button
+		>
 
 		<div class:active={meta_active} class="af-meta">
 			<h3>Meta Data</h3>
-			<button type="button" on:click|preventDefault={() => (meta_active = false)}>Hide Meta</button>
 			<FormRows fields={meta_fields} />
 		</div>
 	{/if}

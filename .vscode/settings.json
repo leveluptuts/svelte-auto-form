@@ -1,5 +1,5 @@
 {
 	"editor.fontSize": 16,
-	"window.zoomLevel": 0,
+	"window.zoomLevel": -1,
 	"cSpell.words": ["typeof"]
 }
