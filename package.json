@@ -9,6 +9,7 @@
     },
     "devDependencies": {
         "@leveluptuts/svelte-toy": "2.0.3",
+        "@sveltejs/adapter-auto": "^2.0.0",
         "@sveltejs/package": "2.0.2",
         "@typescript-eslint/eslint-plugin": "^5.55.0",
         "@typescript-eslint/parser": "^5.55.0",
